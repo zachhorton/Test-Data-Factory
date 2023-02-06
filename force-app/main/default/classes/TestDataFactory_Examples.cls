@@ -40,7 +40,7 @@ private class TestDataFactory_Examples {
             'Description' => description
         },5);
 
-        List<Account> acctResult = [SELECT Id, Name, Description FROM Account];
+        List<Account> acctResult = [SELECT Id, Name, Description, Required_Field__c FROM Account];
         System.assertEquals(5, acctResult.size());
 
         Set<String> acctNamesSet = new Set<String>();
@@ -48,6 +48,7 @@ private class TestDataFactory_Examples {
         for (Account acct : acctResult) {
             System.assertEquals(description, acct.Description);
             System.assertEquals(true, acctNamesSet.contains(acct.Name));
+            System.assertNotEquals(null, acct.Required_Field__c, 'Required field should be automatically populated');
         }
     }
 
