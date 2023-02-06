@@ -1,5 +1,6 @@
 /*
-    Simple examples shown as tests, uses examples from https://github.com/benahm/TestDataFactory/blob/master/docs/EXAMPLES.md
+    Simple examples shown as tests, 
+    uses examples from https://github.com/benahm/TestDataFactory/blob/master/docs/EXAMPLES.md
 */
 
 @isTest
@@ -9,8 +10,8 @@ private class TestDataFactory_Examples {
         // Creates two accounts in a parent/child relationship
         // Also creates a contact under the child Account
 
-        String acctName = 'Test Account Name';
-        String parentAcctName = 'Test Parent Account Name';
+        String acctName = 'Test Account';
+        String parentAcctName = 'Test Parent Account';
         String firstName = 'John';
         String lastName = 'Doe';
         Contact con = (Contact) TestDataFactory.createSObject('Contact', new Map<String,Object>{
