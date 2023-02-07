@@ -22,13 +22,14 @@ private class TestDataFactory_Examples {
             'Account.Parent.Name' => parentAcctName
         });
 
-        Account acct = [SELECT Id, Name, Parent.Name, (SELECT Id, FirstName, LastName FROM Contacts) FROM Account WHERE Name = :acctName];
+        Account acct = [SELECT Id, Name, Parent.Name, (SELECT Id, FirstName, LastName, Required_Field__c FROM Contacts) FROM Account WHERE Name = :acctName];
         System.assertEquals(acctName, acct.Name);
         System.assertEquals(parentAcctName, acct.Parent.Name);
 
         Contact childContact = acct.Contacts[0];
         System.assertEquals(firstName, childContact.FirstName);
         System.assertEquals(lastName, childContact.LastName);
+        System.assertNotEquals(null, childContact.Required_Field__c);
     }
 
     @isTest static void ListOfAccounts() {
