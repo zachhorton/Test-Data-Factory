@@ -1,4 +1,5 @@
-@isTest private class TestUtility_Examples {
+@isTest 
+private class TestUtility_Examples {
     @isTest static void ContactAndAccount() {
         
         // Creates two accounts in a parent/child relationship
@@ -63,9 +64,6 @@
 
         Id profileId = UserInfo.getProfileId();
         List<User> uList = TestUtility.createSObjectList(new User(), 10, 'TestUtility.UserDefaults');
-        for (User usr : uList) {
-            System.debug(usr);
-        }
         insert uList;
 
         List<User> users = [SELECT Id, ProfileId, Username, CommunityNickname FROM User WHERE Id IN :uList];
