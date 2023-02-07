@@ -59,14 +59,14 @@ private class BasicTestDataBuilder_Examples {
         // Uses merge fields to create unique list of users
         // The following code creates 10 users with different usernames and nicknames
 
-        Id profileId = UserInfo.getProfileId();
-        List<User> uList = BasicTestDataBuilder.makeUserList(true, 10);
+        Profile otherProfile = [SELECT Id FROM Profile WHERE UserType = 'Standard' AND Id != :UserInfo.getProfileId() LIMIT 1];
+        List<User> uList = BasicTestDataBuilder.makeUserList(true, 10, new Map<String, Object> {'ProfileId' => otherProfile.Id});
         // insert uList; // Done automatically in builder
 
         List<User> users = [SELECT Id, ProfileId, Username, CommunityNickname FROM User WHERE Id IN :uList];
         System.assertEquals(10, users.size());
         for (User usr : users) {
-            System.assertEquals(profileId, usr.ProfileId);
+            System.assertEquals(otherProfile.Id, usr.ProfileId);
             System.assertEquals(true, usr.Username.contains(usr.CommunityNickname.toLowerCase()), 'Nickname unique value should be identity of username email');
         }
     }
